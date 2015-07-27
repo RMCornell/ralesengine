@@ -18,5 +18,9 @@ RSpec.describe Customer, type: :model do
     customer.last_name = nil
     expect(customer).to_not be_valid
   end
+
+  it 'responds to presence of invoices' do
+   respond_to :invoice
+  end
 end
 

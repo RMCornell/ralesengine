@@ -21,5 +21,13 @@ RSpec.describe Invoice, type: :model do
     invoice.status = nil
     expect(invoice).to_not be_valid
   end
+
+  it 'responds to invoice items' do
+    respond_to :invoice_items
+  end
+
+  it 'responds to items' do
+    respond_to :items
+  end
 end
 

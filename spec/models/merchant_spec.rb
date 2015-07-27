@@ -13,6 +13,18 @@ RSpec.describe Merchant, type: :model do
     merchant.name = nil
     expect(merchant).to_not be_valid
   end
+
+  it 'responds to items' do
+    respond_to :items
+  end
+
+  it 'responds to invoices' do
+    respond_to :invoices
+  end
+
+  it 'responds to customers' do
+    respond_to :customers
+  end
 end
 
 
