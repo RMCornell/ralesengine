@@ -27,8 +27,3 @@ RSpec.describe Item, type: :model do
     expect(item).to_not be_valid
   end
 end
-
-
-
-
-
