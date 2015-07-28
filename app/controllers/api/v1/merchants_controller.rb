@@ -14,7 +14,15 @@ class Api::V1::MerchantsController < ApplicationController
   end
 
   def random
-    respond_with Merchant.rand
+    respond_with Merchant.limit(1).order("RANDOM()")
+  end
+
+  def find
+    respond_with Merchant.find_by(parameters)
+  end
+
+  def find_all
+    respond_with Merchant.where(parameters)
   end
 end
 

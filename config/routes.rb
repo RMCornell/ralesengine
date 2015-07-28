@@ -17,6 +17,24 @@ Rails.application.routes.draw do
       get '/items/find' => 'items#find'
       get '/items/find_all' => 'items#find_all'
 
+      get '/invoices/random' => 'invoices#random'
+      get '/invoices/find' => 'invoices#find'
+      get '/invoices/find_all' => 'invoices#find_all'
+
+      get '/merchants/random' => 'merchants#random'
+      get '/merchants/find' => 'merchants#find'
+      get '/merchants/find_all' => 'merchants#find_all'
+
+      get '/transactions/random' => 'transactions#random'
+      get '/transactions/find' => 'transactions#find'
+      get '/transactions/find_all' => 'transactions#find_all'
+
+
+
+      get 'merchants/:id/items' => 'merchants#items'
+
+
+
       resources :customers, except: [:new, :edit]
       resources :merchants, except: [:new, :edit]
       resources :items, except: [:new, :edit]
