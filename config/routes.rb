@@ -9,6 +9,9 @@ Rails.application.routes.draw do
       get '/invoice_items/find' => 'invoice_items#find'
       get '/invoice_items/find_all' => 'invoice_items#find_all'
 
+      get '/invoice_items/:id/invoice' => 'invoice_items#invoice'
+      get '/invoice_items/:id/item' => 'invoice_items#item'
+
       get '/invoices/random' => 'invoices#random'
       get '/invoices/find' => 'invoices#find'
       get '/invoices/find_all' => 'invoices#find_all'

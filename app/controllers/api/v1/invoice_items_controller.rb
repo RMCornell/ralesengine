@@ -20,4 +20,12 @@ class Api::V1::InvoiceItemsController < ApplicationController
   def find_all
     respond_with InvoiceItem.where(parameters)
   end
+
+  def invoice
+    respond_with InvoiceItem.find_by(id: params[:id]).invoice
+  end
+
+  def item
+    respond_with InvoiceItem.find_by(id: params[:id]).item
+  end
 end
