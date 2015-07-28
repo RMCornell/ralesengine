@@ -8,4 +8,8 @@ class Api::V1::CustomersController < ApplicationController
   def show
     respond_with Customer.find_by(id: params[:id])
   end
+
+  def random
+    respond_with Customer.randomgit
+  end
 end
