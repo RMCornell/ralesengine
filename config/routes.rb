@@ -4,6 +4,7 @@ Rails.application.routes.draw do
       resources :customers, except: [:new, :edit]
       resources :merchants, except: [:new, :edit]
       resources :items, except: [:new, :edit]
+      resources :invoices, except: [:new, :edit]
     end
 end
 end
