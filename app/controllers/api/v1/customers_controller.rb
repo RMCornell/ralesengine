@@ -10,15 +10,15 @@ class Api::V1::CustomersController < ApplicationController
   end
 
   def random
-    respond_with Customer.limit(1).order("RANDOM()")
+    respond_with Customer.random
   end
 
   def find
-    respond_with Customer.find_by(parameters)
+    respond_with Customer.find_by_type(parameters)
   end
 
   def find_all
-    respond_with Customer.where(parameters)
+    respond_with Customer.find_all_by_type(parameters)
   end
 
   def invoices
