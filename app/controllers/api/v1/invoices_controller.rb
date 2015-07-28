@@ -20,4 +20,8 @@ class Api::V1::InvoicesController < ApplicationController
   def find_all
     respond_with Invoice.where(parameters)
   end
+
+  def transactions
+    respond_with Invoice.find_by(id: params[:id]).transactions.all
+  end
 end
