@@ -14,11 +14,11 @@ class Api::V1::InvoicesController < ApplicationController
   end
 
   def find
-    respond_with Invoice.find_by(parameters)
+    respond_with Invoice.find_by_type(parameters)
   end
 
   def find_all
-    respond_with Invoice.where(parameters)
+    respond_with Invoice.find_all_by_type(parameters)
   end
 
   def transactions

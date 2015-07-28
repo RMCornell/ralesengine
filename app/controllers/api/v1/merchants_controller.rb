@@ -18,11 +18,11 @@ class Api::V1::MerchantsController < ApplicationController
   end
 
   def find
-    respond_with Merchant.find_by(parameters)
+    respond_with Merchant.find_by_type(parameters)
   end
 
   def find_all
-    respond_with Merchant.where(parameters)
+    respond_with Merchant.find_all_by_type(parameters)
   end
 
   def items
