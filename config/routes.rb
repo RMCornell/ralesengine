@@ -20,6 +20,9 @@ Rails.application.routes.draw do
       get '/items/find' => 'items#find'
       get '/items/find_all' => 'items#find_all'
 
+      get '/items/:id/invoice_items' => 'items#invoice_items'
+      get '/items/:id/merchant' => 'items#merchant'
+
       get '/invoices/random' => 'invoices#random'
       get '/invoices/find' => 'invoices#find'
       get '/invoices/find_all' => 'invoices#find_all'
