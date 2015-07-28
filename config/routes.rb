@@ -3,6 +3,11 @@ Rails.application.routes.draw do
     namespace :v1 do
       get '/customers/random' => 'customers#random'
       get '/customers/find' => 'customers#find'
+      get '/customers/find_all' => 'customers#find_all'
+
+      get '/invoice_items/random' => 'invoice_items#random'
+      get '/invoice_items/find' => 'invoice_items#find'
+      get '/invoice_items/find_all' => 'invoice_items#find_all'
 
       resources :customers, except: [:new, :edit]
       resources :merchants, except: [:new, :edit]
@@ -13,28 +18,3 @@ Rails.application.routes.draw do
     end
 end
 end
-
-
-=begin
-
-ApiDemoApp::Application.routes.draw do
-  scope '/api' do
-    scope '/v1' do
-      scope '/projects' do
-        get '/' => 'api_projects#index'
-        post '/' => 'api_projects#create'
-        scope '/:name' do
-          get '/' => 'api_projects#show'
-          put '/' => 'api_projects#update'
-          scope '/todos' do
-            get '/' => 'api_todos#index'
-            post '/' => 'api_todos#create'
-            scope '/:todo_name' do
-              get '/' => 'api_todos#show'
-              put '/' => 'api_todos#update'
-            end
-          end
-        end
-      end
-=end
-
