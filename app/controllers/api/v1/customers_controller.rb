@@ -12,4 +12,8 @@ class Api::V1::CustomersController < ApplicationController
   def random
     respond_with Customer.limit(1).order("RANDOM()")
   end
+
+  def find
+    respond_with Customer.find_by(parameters)
+  end
 end
