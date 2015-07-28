@@ -9,6 +9,10 @@ Rails.application.routes.draw do
       get '/invoice_items/find' => 'invoice_items#find'
       get '/invoice_items/find_all' => 'invoice_items#find_all'
 
+      get '/invoices/random' => 'invoices#random'
+      get '/invoices/find' => 'invoices#find'
+      get '/invoices/find_all' => 'invoices#find_all'
+
       resources :customers, except: [:new, :edit]
       resources :merchants, except: [:new, :edit]
       resources :items, except: [:new, :edit]
