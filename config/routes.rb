@@ -5,6 +5,9 @@ Rails.application.routes.draw do
       get '/customers/find' => 'customers#find'
       get '/customers/find_all' => 'customers#find_all'
 
+      get '/customers/:id/invoices' => 'customers#invoices'
+      get '/customers/:id/transactions' => 'customers#transactions'
+
       get '/invoice_items/random' => 'invoice_items#random'
       get '/invoice_items/find' => 'invoice_items#find'
       get '/invoice_items/find_all' => 'invoice_items#find_all'
