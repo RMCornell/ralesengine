@@ -6,6 +6,7 @@ Rails.application.routes.draw do
       resources :items, except: [:new, :edit]
       resources :invoices, except: [:new, :edit]
       resources :transactions, execpt: [:new, :edit]
+      resources :invoice_items, except: [:new, :edit]
     end
 end
 end
