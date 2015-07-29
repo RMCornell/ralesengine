@@ -2,6 +2,8 @@ class Merchant < ActiveRecord::Base
   has_many :items
   has_many :invoices
   has_many :customers, through: :invoices
+  has_many :invoice_items, through: :invoices
+  has_many :transactions, through: :invoices
 
   validates :name, presence: true
 
@@ -22,4 +24,14 @@ class Merchant < ActiveRecord::Base
 
     where("lower(#{attribute}) LIKE ?", "#{value}")
   end
+
+  def revenue
+      invoices.successful.joins(:invoice_items).sum('quantity * unit_price') / 100.00
+  end
+
+  def favorite_customer
+    customers.max_by { |c| c.invoices.successful.where(merchant_id: id).count }
+  end
+
+
 end

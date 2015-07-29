@@ -42,6 +42,9 @@ Rails.application.routes.draw do
 
       get '/merchants/:id/items' => 'merchants#items'
       get '/merchants/:id/invoices' => 'merchants#invoices'
+      get '/merchants/:id/revenue' => 'merchants#revenue'
+      get '/merchants/:id/favorite_customer' => 'merchants#favorite_customer'
+
 
       get '/transactions/random' => 'transactions#random'
       get '/transactions/find' => 'transactions#find'

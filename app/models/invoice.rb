@@ -30,4 +30,8 @@ class Invoice < ActiveRecord::Base
 
     where("lower(#{attribute}) LIKE ?", "#{value}")
   end
+
+  def self.successful
+    joins(:transactions).where(transactions: {result: "success"})
+  end
 end
