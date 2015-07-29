@@ -33,9 +33,16 @@ class Merchant < ActiveRecord::Base
     all.sort_by { |merchant| merchant.revenue }.last(count.to_i).reverse
   end
 
+  def total_items
+    invoices.successful.joins(:invoice_items).sum(:quantity)
+  end
+
+  def self.most_items(count)
+    all.sort_by { |merchant| merchant.total_items }.last(count.to_i).reverse
+  end
+
   def favorite_customer
     customers.max_by { |c| c.invoices.successful.where(merchant_id: id).count }
   end
-
-
 end
+

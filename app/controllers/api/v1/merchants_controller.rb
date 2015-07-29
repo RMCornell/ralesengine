@@ -41,6 +41,10 @@ class Api::V1::MerchantsController < ApplicationController
     respond_with Merchant.most_revenue params[:quantity]
   end
 
+  def most_items
+    respond_with Merchant.most_items params[:quantity]
+  end
+
   def favorite_customer
     respond_with Merchant.find_by(id: params[:id]).favorite_customer
   end
