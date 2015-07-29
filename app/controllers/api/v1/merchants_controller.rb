@@ -34,7 +34,11 @@ class Api::V1::MerchantsController < ApplicationController
   end
 
   def revenue
-    respond_with Merchant.find_by(id: params[:id]).revenue
+    if params.has_key?(:date)
+      respond_with Merchant.find_by(id: params[:id]).revenue_by_date(params[:date])
+    else
+      respond_with Merchant.find_by(id: params[:id]).revenue
+    end
   end
 
   def most_revenue
