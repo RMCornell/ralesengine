@@ -42,7 +42,9 @@ Rails.application.routes.draw do
       get '/merchants/find_all' => 'merchants#find_all'
       get '/merchants/most_revenue' => 'merchants#most_revenue'
       get '/merchants/most_items' => 'merchants#most_items'
+      get '/merchants/revenue' => 'merchants#revenue'
 
+      get '/merchants/:id/customers_with_pending_invoices' => 'merchants#customers_with_pending_invoices'
       get '/merchants/:id/items' => 'merchants#items'
       get '/merchants/:id/invoices' => 'merchants#invoices'
       get '/merchants/:id/revenue' => 'merchants#revenue'

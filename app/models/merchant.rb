@@ -44,5 +44,9 @@ class Merchant < ActiveRecord::Base
   def favorite_customer
     customers.max_by { |c| c.invoices.successful.where(merchant_id: id).count }
   end
+
+  def pending
+    invoices.pending
+  end
 end
 
