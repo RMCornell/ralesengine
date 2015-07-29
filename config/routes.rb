@@ -40,6 +40,7 @@ Rails.application.routes.draw do
       get '/merchants/random' => 'merchants#random'
       get '/merchants/find' => 'merchants#find'
       get '/merchants/find_all' => 'merchants#find_all'
+      get '/merchants/most_revenue' => 'merchants#most_revenue'
 
       get '/merchants/:id/items' => 'merchants#items'
       get '/merchants/:id/invoices' => 'merchants#invoices'

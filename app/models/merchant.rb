@@ -29,6 +29,10 @@ class Merchant < ActiveRecord::Base
       invoices.successful.joins(:invoice_items).sum('quantity * unit_price') / 100.00
   end
 
+  def self.most_revenue(count)
+    all.sort_by { |merchant| merchant.revenue }.last(count.to_i).reverse
+  end
+
   def favorite_customer
     customers.max_by { |c| c.invoices.successful.where(merchant_id: id).count }
   end
