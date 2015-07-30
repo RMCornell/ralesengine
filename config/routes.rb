@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
+      resources :customers, only: [:index, :show]
       get '/customers/random' => 'customers#random'
       get '/customers/find' => 'customers#find'
       get '/customers/find_all' => 'customers#find_all'
@@ -23,6 +24,7 @@ Rails.application.routes.draw do
       get '/items/random' => 'items#random'
       get '/items/find' => 'items#find'
       get '/items/find_all' => 'items#find_all'
+      get '/items/most_revenue' => 'items#most_revenue'
 
       get '/items/:id/invoice_items' => 'items#invoice_items'
       get '/items/:id/merchant' => 'items#merchant'
@@ -59,7 +61,7 @@ Rails.application.routes.draw do
 
 
 
-      resources :customers, only: [:index, :show]
+
       resources :merchants, only: [:index, :show]
 
       resources :items, only: [:index, :show]

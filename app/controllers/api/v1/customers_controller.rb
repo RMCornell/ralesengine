@@ -30,6 +30,8 @@ class Api::V1::CustomersController < ApplicationController
   end
 
   def favorite_merchant
-    respond_with Customer.find_by(id: params[:id]).favorite_merchant
+    hash = Hash.new(0)
+    merchants.map { |c| hash[c] += 1 }
+    hash.max
   end
 end
