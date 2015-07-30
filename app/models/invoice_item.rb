@@ -15,11 +15,7 @@ class InvoiceItem < ActiveRecord::Base
     attribute = parameters.keys.first
     value     = parameters.values.first.to_s.downcase
 
-    return find_by(attribute.to_sym => value ) if attribute == "id"
-    return find_by(attribute.to_sym => value ) if attribute == "item_id"
-    return find_by(attribute.to_sym => value ) if attribute == "invoice_id"
-    return find_by(attribute.to_sym => value ) if attribute == "quantity"
-    return find_by(attribute.to_sym => value ) if attribute == "unit_price"
+    return find_by(attribute.to_sym => value ) if attribute == "id" || attribute == 'item_id' || attribute == 'invoice_id' || attribute == 'quantity' || attribute == 'unit_price'
 
     where("lower(#{attribute}) LIKE ?", "#{value}").first
   end
@@ -28,11 +24,7 @@ class InvoiceItem < ActiveRecord::Base
     attribute = parameters.keys.first
     value     = parameters.values.first.to_s.downcase
 
-    return find_by(attribute.to_sym => value ) if attribute == "id"
-    return find_by(attribute.to_sym => value ) if attribute == "item_id"
-    return find_by(attribute.to_sym => value ) if attribute == "invoice_id"
-    return find_by(attribute.to_sym => value ) if attribute == "quantity"
-    return find_by(attribute.to_sym => value ) if attribute == "unit_price"
+    return find_by(attribute.to_sym => value ) if attribute == "id" || attribute == 'item_id' || attribute == 'invoice_id' || attribute == 'quantity' || attribute == 'unit_price'
 
     where("lower(#{attribute}) LIKE ?", "#{value}")
   end

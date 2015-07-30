@@ -13,9 +13,7 @@ class Transaction < ActiveRecord::Base
     attribute = parameters.keys.first
     value     = parameters.values.first.to_s.downcase
 
-    return find_by(attribute.to_sym => value ) if attribute == "id"
-    return find_by(attribute.to_sym => value ) if attribute == "invoice_id"
-    return find_by(attribute.to_sym => value ) if attribute == "credit_card_number"
+    return find_by(attribute.to_sym => value ) if attribute == "id" || attribute == 'invoice_id' || attribute == 'credit_card_number'
 
     where("lower(#{attribute}) LIKE ?", "#{value}").first
   end
@@ -24,9 +22,7 @@ class Transaction < ActiveRecord::Base
     attribute = parameters.keys.first
     value     = parameters.values.first.to_s.downcase
 
-    return find_by(attribute.to_sym => value ) if attribute == "id"
-    return find_by(attribute.to_sym => value ) if attribute == "invoice_id"
-    return find_by(attribute.to_sym => value ) if attribute == "credit_card_number"
+    return find_by(attribute.to_sym => value ) if attribute == "id" || attribute == 'invoice_id' || attribute == 'credit_card_number'
 
     where("lower(#{attribute}) LIKE ?", "#{value}")
   end

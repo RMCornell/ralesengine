@@ -17,9 +17,7 @@ class Invoice < ActiveRecord::Base
     attribute = parameters.keys.first
     value     = parameters.values.first.to_s.downcase
 
-    return find_by(attribute.to_sym => value ) if attribute == "id"
-    return find_by(attribute.to_sym => value ) if attribute == "customer_id"
-    return find_by(attribute.to_sym => value ) if attribute == "merchant_id"
+    return find_by(attribute.to_sym => value ) if attribute == "id" || attribute == 'customer_id' || attribute == 'merchant_id'
 
     where("lower(#{attribute}) LIKE ?", "#{value}").first
   end
@@ -28,9 +26,7 @@ class Invoice < ActiveRecord::Base
     attribute = parameters.keys.first
     value     = parameters.values.first.to_s.downcase
 
-    return find_by(attribute.to_sym => value ) if attribute == "id"
-    return find_by(attribute.to_sym => value ) if attribute == "customer_id"
-    return find_by(attribute.to_sym => value ) if attribute == "merchant_id"
+    return find_by(attribute.to_sym => value ) if attribute == "id" || attribute == 'customer_id' || attribute == 'merchant_id'
 
     where("lower(#{attribute}) LIKE ?", "#{value}")
   end
