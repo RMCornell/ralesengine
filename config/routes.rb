@@ -1,73 +1,69 @@
 Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
-      resources :customers, only: [:index, :show]
-      get '/customers/random' => 'customers#random'
-      get '/customers/find' => 'customers#find'
-      get '/customers/find_all' => 'customers#find_all'
+      resources :customers, only: [:index, :show] do
+        get '/random' => 'customers#random'
+        get '/find' => 'customers#find'
+        get '/find_all' => 'customers#find_all'
 
-      get '/customers/:id/invoices' => 'customers#invoices'
-      get '/customers/:id/transactions' => 'customers#transactions'
-      get '/customers/:id/favorite_merchant' => 'customers#favorite_merchant'
+        get '/:id/invoices' => 'customers#invoices'
+        get '/:id/transactions' => 'customers#transactions'
+        get '/:id/favorite_merchant' => 'customers#favorite_merchant'
+      end
 
-      get '/invoice_items/random' => 'invoice_items#random'
-      get '/invoice_items/find' => 'invoice_items#find'
-      get '/invoice_items/find_all' => 'invoice_items#find_all'
+      resources :invoice_items, only: [:index, :show] do
+        get '/random' => 'invoice_items#random'
+        get '/find' => 'invoice_items#find'
+        get '/find_all' => 'invoice_items#find_all'
 
-      get '/invoice_items/:id/invoice' => 'invoice_items#invoice'
-      get '/invoice_items/:id/item' => 'invoice_items#item'
+        get '/:id/invoice' => 'invoice_items#invoice'
+        get '/:id/item' => 'invoice_items#item'
+      end
 
-      get '/invoices/random' => 'invoices#random'
-      get '/invoices/find' => 'invoices#find'
-      get '/invoices/find_all' => 'invoices#find_all'
+      resources :items, only: [:index, :show] do
+        get '/random' => 'items#random'
+        get '/find' => 'items#find'
+        get '/find_all' => 'items#find_all'
+        get '/most_revenue' => 'items#most_revenue'
 
-      get '/items/random' => 'items#random'
-      get '/items/find' => 'items#find'
-      get '/items/find_all' => 'items#find_all'
-      get '/items/most_revenue' => 'items#most_revenue'
+        get '/:id/invoice_items' => 'items#invoice_items'
+        get '/:id/merchant' => 'items#merchant'
+      end
 
-      get '/items/:id/invoice_items' => 'items#invoice_items'
-      get '/items/:id/merchant' => 'items#merchant'
+      resources :invoices, only: [:index, :show] do
+        get '/random' => 'invoices#random'
+        get '/find' => 'invoices#find'
+        get '/find_all' => 'invoices#find_all'
 
-      get '/invoices/random' => 'invoices#random'
-      get '/invoices/find' => 'invoices#find'
-      get '/invoices/find_all' => 'invoices#find_all'
+        get '/:id/transactions' => 'invoices#transactions'
+        get '/:id/invoice_items' => 'invoices#invoice_items'
+        get '/:id/items' => 'invoices#items'
+        get '/:id/customer' => 'invoices#customer'
+        get '/:id/merchant' => 'invoices#merchant'
+      end
 
-      get '/invoices/:id/transactions' => 'invoices#transactions'
-      get '/invoices/:id/invoice_items' => 'invoices#invoice_items'
-      get '/invoices/:id/items' => 'invoices#items'
-      get '/invoices/:id/customer' => 'invoices#customer'
-      get '/invoices/:id/merchant' => 'invoices#merchant'
+      resources :merchants, only: [:index, :show] do
+        get '/random' => 'merchants#random'
+        get '/find' => 'merchants#find'
+        get '/find_all' => 'merchants#find_all'
+        get '/most_revenue' => 'merchants#most_revenue'
+        get '/most_items' => 'merchants#most_items'
+        get '/revenue' => 'merchants#revenue'
 
-      get '/merchants/random' => 'merchants#random'
-      get '/merchants/find' => 'merchants#find'
-      get '/merchants/find_all' => 'merchants#find_all'
-      get '/merchants/most_revenue' => 'merchants#most_revenue'
-      get '/merchants/most_items' => 'merchants#most_items'
-      get '/merchants/revenue' => 'merchants#revenue'
+        get '/:id/customers_with_pending_invoices' => 'merchants#customers_with_pending_invoices'
+        get '/:id/items' => 'merchants#items'
+        get '/:id/invoices' => 'merchants#invoices'
+        get '/:id/revenue' => 'merchants#revenue'
+        get '/:id/favorite_customer' => 'merchants#favorite_customer'
+      end
 
-      get '/merchants/:id/customers_with_pending_invoices' => 'merchants#customers_with_pending_invoices'
-      get '/merchants/:id/items' => 'merchants#items'
-      get '/merchants/:id/invoices' => 'merchants#invoices'
-      get '/merchants/:id/revenue' => 'merchants#revenue'
-      get '/merchants/:id/favorite_customer' => 'merchants#favorite_customer'
+      resources :transactions, only: [:index, :show] do
+        get '/random' => 'transactions#random'
+        get '/find' => 'transactions#find'
+        get '/find_all' => 'transactions#find_all'
 
-
-      get '/transactions/random' => 'transactions#random'
-      get '/transactions/find' => 'transactions#find'
-      get '/transactions/find_all' => 'transactions#find_all'
-
-      get '/transactions/:id/invoice' => 'transactions#invoice'
-
-
-
-
-      resources :merchants, only: [:index, :show]
-
-      resources :items, only: [:index, :show]
-      resources :invoices, only: [:index, :show]
-      resources :transactions, only: [:index, :show]
-      resources :invoice_items, only: [:index, :show]
+        get '/:id/invoice' => 'transactions#invoice'
+      end
     end
 end
 end
