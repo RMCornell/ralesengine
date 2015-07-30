@@ -26,7 +26,9 @@ class Customer < ActiveRecord::Base
   end
 
   def favorite_merchant
-    merchants.max_by { |c| c.invoices.successful.where(customer_id: id).count}
+    hash = Hash.new(0)
+    merchants.map { |m| hash[m] += 1 }
+    hash.max.first
   end
 
   def self.random

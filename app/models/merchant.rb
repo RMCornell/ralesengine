@@ -7,6 +7,10 @@ class Merchant < ActiveRecord::Base
 
   validates :name, presence: true
 
+  def self.random
+    Merchant.limit(1).order("RANDOM()")
+  end
+
   def self.find_by_type(parameters)
     attribute = parameters.keys.first
     value     = parameters.values.first.to_s.downcase

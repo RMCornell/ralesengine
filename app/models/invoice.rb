@@ -9,6 +9,10 @@ class Invoice < ActiveRecord::Base
   validates :merchant_id, presence: true
   validates :status, presence: true
 
+  def self.random
+    Invoice.limit(1).order("RANDOM()")
+  end
+
   def self.find_by_type(parameters)
     attribute = parameters.keys.first
     value     = parameters.values.first.to_s.downcase

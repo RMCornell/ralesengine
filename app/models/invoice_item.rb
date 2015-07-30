@@ -7,6 +7,10 @@ class InvoiceItem < ActiveRecord::Base
   validates :quantity, presence: true
   validates :unit_price, presence: true
 
+  def self.random
+    InvoiceItem.limit(1).order("RANDOM()")
+  end
+
   def self.find_by_type(parameters)
     attribute = parameters.keys.first
     value     = parameters.values.first.to_s.downcase
