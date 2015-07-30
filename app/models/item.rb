@@ -12,9 +12,7 @@ has_many :invoices, through: :invoice_items
     attribute = parameters.keys.first
     value     = parameters.values.first.to_s.downcase
 
-    return find_by(attribute.to_sym => value ) if attribute == "id"
-    return find_by(attribute.to_sym => value ) if attribute == "unit_price"
-    return find_by(attribute.to_sym => value ) if attribute == "merchant_id"
+    return find_by(attribute.to_sym => value ) if attribute == "id" || attribute == 'unit_price' || attribute == 'merchant_id'
 
     where("lower(#{attribute}) LIKE ?", "#{value}").first
   end
@@ -23,9 +21,7 @@ has_many :invoices, through: :invoice_items
     attribute = parameters.keys.first
     value     = parameters.values.first.to_s.downcase
 
-    return find_by(attribute.to_sym => value ) if attribute == "id"
-    return find_by(attribute.to_sym => value ) if attribute == "unit_price"
-    return find_by(attribute.to_sym => value ) if attribute == "merchant_id"
+    return find_by(attribute.to_sym => value ) if attribute == "id" || attribute == 'unit_price' || attribute == 'merchant_id'
 
     where("lower(#{attribute}) LIKE ?", "#{value}")
   end
