@@ -11,12 +11,12 @@ Rails.application.routes.draw do
         resources :customers, only: [:index, :show]
 
 
-        get '/items/random'                 => 'invoice_items#random'
-        get '/items/find'                   => 'invoice_items#find'
-        get '/items/find_all'               => 'invoice_items#find_all'
+        get '/invoice_items/random'                 => 'invoice_items#random'
+        get '/invoice_items/find'                   => 'invoice_items#find'
+        get '/invoice_items/find_all'               => 'invoice_items#find_all'
 
-        get 'items/:id/invoice'            => 'invoice_items#invoice'
-        get 'items/:id/item'               => 'invoice_items#item'
+        get 'invoice_items/:id/invoice'            => 'invoice_items#invoice'
+        get 'invoice_items/:id/item'               => 'invoice_items#item'
         resources :invoice_items, only: [:index, :show]
 
 

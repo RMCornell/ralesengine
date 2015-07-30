@@ -10,7 +10,7 @@ class Api::V1::ItemsController < ApplicationController
   end
 
   def random
-    respond_with Item.limit(1).order("RANDOM()")
+    respond_with Item.random
   end
 
   def find
