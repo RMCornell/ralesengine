@@ -10,7 +10,7 @@ class Api::V1::CustomersController < ApplicationController
   end
 
   def random
-    respond_with Customer.random
+    respond_with Customer.limit(1).order("RANDOM()")
   end
 
   def find
@@ -30,9 +30,7 @@ class Api::V1::CustomersController < ApplicationController
   end
 
   def favorite_merchant
-    hash = Hash.new(0)
-    merchants.map { |c| hash[c] += 1 }
-    hash.max
+    respond_with find_customer.favorite_merchant
   end
 
   private

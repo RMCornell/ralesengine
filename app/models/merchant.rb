@@ -50,7 +50,9 @@ class Merchant < ActiveRecord::Base
   end
 
   def favorite_customer
-    customers.max_by { |c| c.invoices.successful.where(merchant_id: id).count }
+    hash = Hash.new(0)
+    customers.map { |c| hash[c] += 1 }
+    hash.max
   end
 
   def pending

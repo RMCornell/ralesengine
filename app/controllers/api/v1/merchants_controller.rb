@@ -50,10 +50,8 @@ class Api::V1::MerchantsController < ApplicationController
   end
 
   def favorite_customer
-    hash = Hash.new(0)
-    customers.map { |c| hash[c] += 1 }
-    hash.max
-  end
+    respond_with find_merchant.favorite_customer
+end
 
   def customers_with_pending_invoices
     respond_with Merchant.find_merchant.pending
