@@ -18,4 +18,17 @@ RSpec.describe Api::V1::MerchantsController, type: :controller do
     end
   end
 
+  context '#show' do
+    it 'returns a merchant' do
+      merchant = Merchant.new(name: 'Merchant')
+      merchant.save
+
+      get :show, id: merchant.id, format: :json
+
+      expect(response).to have_http_status(:ok)
+
+      merchant_response = JSON.parse(response.body)
+      expect(merchant_response['name']).to eq('Merchant')
+    end
+  end
 end
