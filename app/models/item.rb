@@ -44,4 +44,8 @@ end
 def self.successful_items
   joins(:invoices).merge(Invoice.successful)
 end
+
+def self.random
+  Item.limit(1).order("RANDOM()")
+end
 end

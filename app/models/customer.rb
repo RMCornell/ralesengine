@@ -28,4 +28,8 @@ class Customer < ActiveRecord::Base
   def favorite_merchant
     merchants.max_by { |c| c.invoices.successful.where(customer_id: id).count}
   end
+
+  def self.random
+    Customer.limit(1).order("RANDOM()")
+  end
 end
