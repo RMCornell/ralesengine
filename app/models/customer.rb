@@ -29,4 +29,3 @@ class Customer < ActiveRecord::Base
     merchants.max_by { |c| c.invoices.successful.where(customer_id: id).count}
   end
 end
-
