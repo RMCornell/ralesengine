@@ -29,24 +29,28 @@ class Merchant < ActiveRecord::Base
     where("lower(#{attribute}) ILIKE ?", "#{value}")
   end
 
-  def revenue
-      invoices.successful.joins(:invoice_items).sum('quantity * unit_price') / 100.00
+  def total_revenue
+    invoices.successful.joins(:invoice_items).sum('quantity * unit_price').to_f
   end
 
-  def revenue_by_date(date)
-    invoices.successful.where(created_at: date).joins(:invoice_items).sum("quantity * unit_price")
+  def self.revenue(date)
+    { total_revenue: all.map { |merchant| merchant.revenue(date) }.reduce(0) {|m_revenue| m_revenue} }
   end
 
-  def self.most_revenue(count)
-    all.sort_by { |merchant| merchant.revenue }.last(count.to_i).reverse
+  def revenue(date)
+    { revenue: invoices.successful.where(created_at: date).joins(:invoice_items).sum('quantity * unit_price').to_f }.to_json
+  end
+
+  def self.most_revenue(quantity)
+    all.sort_by { |merchant| merchant.total_revenue }.last(quantity.to_i).reverse
   end
 
   def total_items
     invoices.successful.joins(:invoice_items).sum(:quantity)
   end
 
-  def self.most_items(count)
-    all.sort_by { |merchant| merchant.total_items }.last(count.to_i).reverse
+  def self.most_items(quantity)
+    all.sort_by { |merchant| merchant.total_items }.last(quantity.to_i).reverse
   end
 
   def favorite_customer

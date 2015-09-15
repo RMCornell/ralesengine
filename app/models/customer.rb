@@ -18,6 +18,8 @@ class Customer < ActiveRecord::Base
     return find_by(attribute.to_sym => value) if  attribute == "id" || attribute == "created_at" || attribute == "updated_at"
 
     where("lower(#{attribute}) ILIKE ?", "#{value}").first
+
+
   end
 
   def self.find_all_by_type(parameters)
@@ -26,7 +28,7 @@ class Customer < ActiveRecord::Base
 
     return find_by(attribute.to_sym => value) if  attribute == "id" || attribute == "created_at" || attribute == "updated_at"
 
-    where("lower(#{attribute}) ILIKE ?", "#{value}").first
+    where("lower(#{attribute}) ILIKE ?", "#{value}")
   end
 
   def favorite_merchant

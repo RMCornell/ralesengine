@@ -22,15 +22,15 @@ class Api::V1::CustomersController < ApplicationController
   end
 
   def invoices
-    respond_with Customer.find_by_type.invoices.all
+    respond_with Customer.find_by_type(parameters).invoices.all
   end
 
   def transactions
-    respond_with Customer.find_customer.transactions.all
+    respond_with Customer.find(params[:id]).transactions.all
   end
 
   def favorite_merchant
-    respond_with find_customer.favorite_merchant
+    respond_with Customer.find(params[:id]).favorite_merchant
   end
 
   private

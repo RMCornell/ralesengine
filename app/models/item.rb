@@ -12,7 +12,7 @@ has_many :invoices, through: :invoice_items
     attribute = parameters.keys.first
     value     = parameters.values.first.to_s.downcase
 
-    return find_by(attribute.to_sym => value ) if attribute == "id" || attribute == 'unit_price' || attribute == 'merchant_id' || attribute == "updated_at"
+    return find_by(attribute.to_sym => value ) if attribute == "id" || attribute == 'unit_price' || attribute == 'merchant_id' || attribute == "created_at" || attribute == "updated_at"
 
     where("lower(#{attribute}) ILIKE ?", "#{value}").first
   end
