@@ -6,7 +6,7 @@ class Api::V1::InvoiceItemsController < ApplicationController
   end
 
   def show
-    respond_with find_invoice_item
+    respond_with InvoiceItem.find(params[:id])
   end
 
   def random
@@ -22,7 +22,7 @@ class Api::V1::InvoiceItemsController < ApplicationController
   end
 
   def invoice
-    respond_with InvoiceItem.find_invoice_item.invoice
+    respond_with InvoiceItem.find(params[:id]).invoice
   end
 
   def item
