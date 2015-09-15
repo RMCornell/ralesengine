@@ -22,7 +22,7 @@ class Api::V1::CustomersController < ApplicationController
   end
 
   def invoices
-    respond_with Customer.find_customer.invoices.all
+    respond_with Customer.find_by_type.invoices.all
   end
 
   def transactions

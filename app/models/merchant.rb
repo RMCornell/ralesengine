@@ -15,18 +15,18 @@ class Merchant < ActiveRecord::Base
     attribute = parameters.keys.first
     value     = parameters.values.first.to_s.downcase
 
-    return find_by(attribute.to_sym => value ) if attribute == "id"
+    return find_by(attribute.to_sym => value ) if attribute == "id" || attribute == "created_at" || attribute == "updated_at"
 
-    where("lower(#{attribute}) LIKE ?", "#{value}").first
+    where("lower(#{attribute}) ILIKE ?", "#{value}").first
   end
 
   def self.find_all_by_type(parameters)
     attribute = parameters.keys.first
     value     = parameters.values.first.to_s.downcase
 
-    return find_by(attribute.to_sym => value ) if attribute == "id"
+    return find_by(attribute.to_sym => value ) if attribute == "id" || attribute == "created_at" || attribute == "updated_at"
 
-    where("lower(#{attribute}) LIKE ?", "#{value}")
+    where("lower(#{attribute}) ILIKE ?", "#{value}")
   end
 
   def revenue

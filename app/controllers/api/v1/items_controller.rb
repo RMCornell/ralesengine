@@ -6,7 +6,7 @@ class Api::V1::ItemsController < ApplicationController
   end
 
   def show
-    respond_with find_item
+    respond_with Item.find(params[:id])
   end
 
   def random
@@ -22,11 +22,11 @@ class Api::V1::ItemsController < ApplicationController
   end
 
   def invoice_items
-    respond_with Item.find_item.invoice_items
+    respond_with Item.find(params[:id]).invoice_items
   end
 
   def merchant
-    respond_with Item.find_item.merchant
+    respond_with Item.find(params[:id]).merchant
   end
 
   def most_revenue
@@ -38,7 +38,7 @@ class Api::V1::ItemsController < ApplicationController
   end
 
   def best_day
-    respond_with find_item.best_day
+    respond_with Item.find(params[:id]).best_day
   end
 
   private
