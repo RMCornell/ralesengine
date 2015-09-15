@@ -6,7 +6,7 @@ class Api::V1::MerchantsController < ApplicationController
   end
 
   def show
-    respond_with Merchant.find_by(params[:id])
+    respond_with Merchant.find(params[:id])
   end
 
   def by_name
@@ -54,7 +54,7 @@ class Api::V1::MerchantsController < ApplicationController
   end
 
   def customers_with_pending_invoices
-    respond_with Merchant.find_merchant.pending
+    respond_with Merchant.find(params[:id]).pending
   end
 
   private
