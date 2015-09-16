@@ -19,7 +19,7 @@ task :import => :environment do
     Item.create!({:id          => row[:id],
                   :name        => row[:name],
                   :description => row[:description],
-                  :unit_price  => row[:unit_price].to_f / 100,
+                  :unit_price  => BigDecimal.new(row[:unit_price].insert(-3, '.')),
                   :merchant_id => row[:merchant_id],
                   :created_at  => row[:created_at],
                   :updated_at  => row[:updated_at]
@@ -31,7 +31,7 @@ task :import => :environment do
                          :invoice_id => row[:invoice_id],
                          :item_id    => row[:item_id],
                          :quantity   => row[:quantity],
-                         :unit_price => row[:unit_price].to_f / 100,
+                         :unit_price => BigDecimal.new(row[:unit_price].insert(-3, '.')),
                          :created_at => row[:created_at],
                          :updated_at => row[:updated_at]
                         })

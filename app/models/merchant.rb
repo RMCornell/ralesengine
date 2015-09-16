@@ -20,25 +20,25 @@ class Merchant < ActiveRecord::Base
   end
 
   def total_revenue
-    invoices.successful.joins(:invoice_items).sum('quantity * unit_price').to_f
+    invoices.successful.joins(:invoice_items).sum('quantity * unit_price / 100').to_f
   end
 
-  def self.revenue_for_date(date)
+  def self.revenue_for_date(date = nil)
     day = date.to_date
-    joins(:invoices).merge(Invoice.successful).where(invoices: {created_at: day.beginning_of_day..day.end_of_day}).includes(:invoice_items).sum("quantity * unit_price") / 100
+    joins(:invoices).merge(Invoice.successful).where(invoices: {created_at: day.beginning_of_day..day.end_of_day}).includes(:invoice_items).sum("quantity * unit_price / 100")
   end
 
   def revenue(date = nil)
     if date
       day = date.to_date
-      invoices.successful.where(created_at: day.beginning_of_day..day.end_of_day).joins(:invoice_items).sum("quantity * unit_price") /100
+      invoices.successful.where(created_at: day.beginning_of_day..day.end_of_day).joins(:invoice_items).sum("quantity * unit_price / 100")
     else
-      invoices.successful.joins(:invoice_items).sum("quantity * unit_price") / 100
+      invoices.successful.joins(:invoice_items).sum("quantity * unit_price / 100")
     end
   end
 
   def revenue_for_date(date)
-     invoices.successful.where(created_at: date).joins(:invoice_items).sum('quantity * unit_price') / 100.00
+     invoices.successful.where(created_at: date).joins(:invoice_items).sum('quantity * unit_price / 100')
   end
 
   def total_items
