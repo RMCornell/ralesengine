@@ -14,28 +14,18 @@ class Invoice < ActiveRecord::Base
   end
 
   def self.find_by_type(parameters)
-    attribute = parameters.keys.first
-    value     = parameters.values.first.to_s.downcase
-
-    return find_by(attribute.to_sym => value ) if attribute == "id" || attribute == 'customer_id' || attribute == 'merchant_id' || attribute == "created_at" || attribute == "updated_at"
-
-    where("lower(#{attribute}) ILIKE ?", "#{value}").first
+    where(parameters).first
   end
 
   def self.find_all_by_type(parameters)
-    attribute = parameters.keys.first
-    value     = parameters.values.first.to_s.downcase
-
-    return find_by(attribute.to_sym => value ) if attribute == "id" || attribute == 'customer_id' || attribute == 'merchant_id' || attribute == "created_at" || attribute == "updated_at"
-
-    where("lower(#{attribute}) ILIKE ?", "#{value}")
+    where(parameters)
   end
 
   def self.successful
     joins(:transactions).where(transactions: {result: "success"})
   end
 
-  def self.pending
+  def pending
     joins(:transactions).where(transactions: {result: "failed"})
   end
 end

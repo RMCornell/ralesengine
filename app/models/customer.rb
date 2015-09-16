@@ -12,29 +12,15 @@ class Customer < ActiveRecord::Base
   end
 
   def self.find_by_type(parameters)
-    attribute = parameters.keys.first
-    value     = parameters.values.first.to_s.downcase
-
-    return find_by(attribute.to_sym => value) if  attribute == "id" || attribute == "created_at" || attribute == "updated_at"
-
-    where("lower(#{attribute}) ILIKE ?", "#{value}").first
-
-
+    where(parameters).first
   end
 
   def self.find_all_by_type(parameters)
-    attribute = parameters.keys.first
-    value     = parameters.values.first.to_s.downcase
-
-    return find_by(attribute.to_sym => value) if  attribute == "id" || attribute == "created_at" || attribute == "updated_at"
-
-    where("lower(#{attribute}) ILIKE ?", "#{value}")
+    where(parameters)
   end
 
   def favorite_merchant
-    hash = Hash.new(0)
-    merchants.map { |m| hash[m] += 1 }
-    hash.max.first
+    f_merchant = invoices.successful.joins(:merchant).group(:name).count.max_by { |k, v| v }
+    merchants.find_by(name: f_merchant.first) if f_merchant
   end
-
 end

@@ -6,7 +6,7 @@ class Api::V1::TransactionsController < ApplicationController
   end
 
   def show
-    respond_with find_transaction
+    respond_with Transaction.find_by(id: params[:id])
   end
 
   def random
@@ -22,12 +22,12 @@ class Api::V1::TransactionsController < ApplicationController
   end
 
   def invoice
-    respond_with Transaction.find_transaction.invoice
+    respond_with Transaction.find_by(id: params[:id]).invoice
   end
 
   private
 
-  def find_transaction
-    Transaction.find_by(id: params[:id])
+  def transactions_parameters
+    params.permit(:id, :invoice_id, :result, :created_at, :updated_at, :credit_card_number)
   end
 end
