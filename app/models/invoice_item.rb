@@ -12,19 +12,10 @@ class InvoiceItem < ActiveRecord::Base
   end
 
   def self.find_by_type(parameters)
-    attribute = parameters.keys.first
-    value     = parameters.values.first.to_s.downcase
-
-    return find_by(attribute.to_sym => value ) if attribute == "id" || attribute == 'item_id' || attribute == 'invoice_id' || attribute == 'quantity' || attribute == 'unit_price' || attribute = "created_at" || attribute = "updated_at"
-    where("lower(#{attribute}) ILIKE ?", "#{value}").first
+    where(parameters).first
   end
 
   def self.find_all_by_type(parameters)
-    attribute = parameters.keys.first
-    value     = parameters.values.first.to_s.downcase
-
-    return find_by(attribute.to_sym => value ) if attribute == "id" || attribute == 'item_id' || attribute == 'invoice_id' || attribute == 'quantity' || attribute == 'unit_price' || attribute = "created_at" || attribute = "updated_at"
-
-    where("lower(#{attribute}) ILIKE ?", "#{value}")
+    where(parameters)
   end
 end

@@ -6,11 +6,7 @@ class Api::V1::MerchantsController < ApplicationController
   end
 
   def show
-    respond_with Merchant.find(params[:id])
-  end
-
-  def by_name
-    respond_with Merchant.find_by(name: params[:name])
+    respond_with Merchant.find_by(id: params[:id])
   end
 
   def random
@@ -18,26 +14,26 @@ class Api::V1::MerchantsController < ApplicationController
   end
 
   def find
-    respond_with Merchant.find_by_type(parameters)
+    respond_with Merchant.find_by_type(merchants_parameters)
   end
 
   def find_all
-    respond_with Merchant.find_all_by_type(parameters)
+    respond_with Merchant.find_all_by_type(merchants_parameters)
   end
 
   def items
-    respond_with Merchant.find(params[:id]).items.all
+    respond_with Merchant.find_by(id: params[:id]).items.all
   end
 
   def invoices
-    respond_with Merchant.find(params[:id]).invoices.all
+    respond_with Merchant.find_by(id: params[:id]).invoices.all
   end
 
   def revenue
-    if params.has_key?(:date)
-      respond_with Merchant.find(params[:id]).revenue_by_date(params[:date])
+    if params[:id]
+      respond_with Merchant.find_by(id: params[:id]).revenue(params[:date])
     else
-      respond_with Merchant.find(params[:id]).revenue
+      respond_with Merchant.find_by(id: params[:id]).revenue_for_date(params[:date])
     end
   end
 
@@ -54,15 +50,12 @@ class Api::V1::MerchantsController < ApplicationController
   end
 
   def customers_with_pending_invoices
-    respond_with Merchant.find(params[:id]).pending
+    respond_with Merchant.find(params[:id]).pending_invoices
   end
 
   private
 
-  def find_merchant
-    Merchant.find_by(id: params[:id])
+  def merchants_parameters
+    params.permit(:id, :name, :created_at, :updated_at)
   end
-
-
 end
-

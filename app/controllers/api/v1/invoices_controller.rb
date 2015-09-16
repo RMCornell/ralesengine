@@ -6,7 +6,7 @@ class Api::V1::InvoicesController < ApplicationController
   end
 
   def show
-    respond_with Invoice.find(params[:id])
+    respond_with Invoice.find_by(id: params[:id])
   end
 
   def random
@@ -14,36 +14,36 @@ class Api::V1::InvoicesController < ApplicationController
   end
 
   def find
-    respond_with Invoice.find_by_type(parameters)
+    respond_with Invoice.find_by_type(invoice_parameters)
   end
 
   def find_all
-    respond_with Invoice.find_all_by_type(parameters)
+    respond_with Invoice.find_all_by_type(invoice_parameters)
   end
 
   def transactions
-    respond_with Invoice.find(params[:id]).transactions.all
+    respond_with Invoice.find_by(id: params[:id]).transactions.all
   end
 
   def invoice_items
-    respond_with Invoice.find(params[:id]).invoice_items.all
+    respond_with Invoice.find_by(id: params[:id]).invoice_items.all
   end
 
   def items
-    respond_with Invoice.find(params[:id]).items.all
+    respond_with Invoice.find_by(id: params[:id]).items.all
   end
 
   def customer
-    respond_with Invoice.find(params[:id]).customer
+    respond_with Invoice.find_by(id: params[:id]).customer
   end
 
   def merchant
-    respond_with Invoice.find(params[:id]).merchant
+    respond_with Invoice.find_by(id: params[:id]).merchant
   end
 
   private
 
-  def find_invoices
-    Invoice.find_by(id: params[:id])
+  def invoice_parameters
+    params.permit(:id, :customer_id, :merchant_id, :status, :created_at, :updated_at)
   end
 end

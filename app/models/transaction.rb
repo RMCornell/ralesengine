@@ -2,7 +2,7 @@ class Transaction < ActiveRecord::Base
   belongs_to :invoice
 
   validates :invoice_id, presence: true
-  validates_numericality_of :credit_card_number, on: :create
+  validates :credit_card_number, presence: true
   validates :result, presence: true
 
   def self.random
@@ -10,21 +10,10 @@ class Transaction < ActiveRecord::Base
   end
 
   def self.find_by_type(parameters)
-    attribute = parameters.keys.first
-    value     = parameters.values.first.to_s.downcase
-
-    return find_by(attribute.to_sym => value ) if attribute == "id" || attribute == 'invoice_id' || attribute == 'credit_card_number' || attribute == "created_at" || attribute == "updated_at"
-
-    where("lower(#{attribute}) ILIKE ?", "#{value}").first
+    where(parameters).first
   end
 
   def self.find_all_by_type(parameters)
-    attribute = parameters.keys.first
-    value     = parameters.values.first.to_s.downcase
-
-    return find_by(attribute.to_sym => value ) if attribute == "id" || attribute == 'invoice_id' || attribute == 'credit_card_number' || attribute == "created_at" || attribute == "updated_at"
-
-
-    where("lower(#{attribute}) ILIKE ?", "#{value}")
+    where(parameters)
   end
 end

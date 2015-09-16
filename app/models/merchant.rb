@@ -12,37 +12,33 @@ class Merchant < ActiveRecord::Base
   end
 
   def self.find_by_type(parameters)
-    attribute = parameters.keys.first
-    value     = parameters.values.first.to_s.downcase
-
-    return find_by(attribute.to_sym => value ) if attribute == "id" || attribute == "created_at" || attribute == "updated_at"
-
-    where("lower(#{attribute}) ILIKE ?", "#{value}").first
+    where(parameters).first
   end
 
   def self.find_all_by_type(parameters)
-    attribute = parameters.keys.first
-    value     = parameters.values.first.to_s.downcase
-
-    return find_by(attribute.to_sym => value ) if attribute == "id" || attribute == "created_at" || attribute == "updated_at"
-
-    where("lower(#{attribute}) ILIKE ?", "#{value}")
+    where(parameters)
   end
 
   def total_revenue
     invoices.successful.joins(:invoice_items).sum('quantity * unit_price').to_f
   end
 
-  def self.revenue(date)
-    { total_revenue: all.map { |merchant| merchant.revenue(date) }.reduce(0) {|m_revenue| m_revenue} }
+  def self.revenue_for_date(date)
+    day = date.to_date
+    joins(:invoices).merge(Invoice.successful).where(invoices: {created_at: day.beginning_of_day..day.end_of_day}).includes(:invoice_items).sum("quantity * unit_price") / 100
   end
 
-  def revenue(date)
-    { revenue: invoices.successful.where(created_at: date).joins(:invoice_items).sum('quantity * unit_price').to_f }.to_json
+  def revenue(date = nil)
+    if date
+      day = date.to_date
+      invoices.successful.where(created_at: day.beginning_of_day..day.end_of_day).joins(:invoice_items).sum("quantity * unit_price") /100
+    else
+      invoices.successful.joins(:invoice_items).sum("quantity * unit_price") / 100
+    end
   end
 
-  def self.most_revenue(quantity)
-    all.sort_by { |merchant| merchant.total_revenue }.last(quantity.to_i).reverse
+  def revenue_for_date(date)
+     invoices.successful.where(created_at: date).joins(:invoice_items).sum('quantity * unit_price') / 100.00
   end
 
   def total_items
@@ -53,14 +49,18 @@ class Merchant < ActiveRecord::Base
     all.sort_by { |merchant| merchant.total_items }.last(quantity.to_i).reverse
   end
 
+  def self.most_revenue(quantity)
+    all.sort_by { |merchant| merchant.total_revenue }.last(quantity.to_i).reverse
+  end
+
   def favorite_customer
     hash = Hash.new(0)
     customers.map { |c| hash[c] += 1 }
-    hash.max
+    max_value = hash.values.max
+    hash.map { |k, v| k if v == max_value}.compact
   end
 
-  def pending
+  def pending_invoices
     invoices.pending
   end
 end
-

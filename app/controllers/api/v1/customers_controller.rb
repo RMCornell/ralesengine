@@ -14,28 +14,28 @@ class Api::V1::CustomersController < ApplicationController
   end
 
   def find
-    respond_with Customer.find_by_type(parameters)
+    respond_with Customer.find_by_type(customer_parameters)
   end
 
   def find_all
-    respond_with Customer.find_all_by_type(parameters)
+    respond_with Customer.find_all_by_type(customer_parameters)
   end
 
   def invoices
-    respond_with Customer.find_by_type(parameters).invoices.all
+    respond_with Customer.find_by_type(customer_parameters).invoices.all
   end
 
   def transactions
-    respond_with Customer.find(params[:id]).transactions.all
+    respond_with Customer.find_by(id: params[:id]).transactions.all
   end
 
   def favorite_merchant
-    respond_with Customer.find(params[:id]).favorite_merchant
+    respond_with Customer.find_by(id: params[:id]).favorite_merchant
   end
 
   private
 
-  def find_customer
-    Customer.find_by(id: params[:id])
+  def customer_parameters
+    params.permit(:id, :first_name, :last_name, :created_at, :updated_at)
   end
 end
