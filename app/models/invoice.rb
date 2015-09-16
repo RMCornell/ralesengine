@@ -25,7 +25,7 @@ class Invoice < ActiveRecord::Base
     joins(:transactions).where(transactions: {result: "success"})
   end
 
-  def pending
+  def self.pending
     joins(:transactions).where(transactions: {result: "failed"})
   end
 end

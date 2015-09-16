@@ -33,6 +33,7 @@ class Item < ActiveRecord::Base
   end
 
   def best_day
-    invoices.successful.group('"invoices"."created_at"').sum("quantity * unit_price").sort_by(&:last).last.first
+    invoices.successful.group('"invoices"."created_at"').sum("quantity * unit_price").sort_by(&:last).last.first.to_time
+
   end
 end
