@@ -33,7 +33,7 @@ class Api::V1::MerchantsController < ApplicationController
     if params[:id]
       respond_with Merchant.find_by(id: params[:id]).revenue(params[:date])
     else
-      respond_with Merchant.find_by(id: params[:id]).revenue_for_date(params[:date])
+      respond_with Merchant.find_by(id: params[:id]).revenue(params[:date])
     end
   end
 
@@ -56,6 +56,6 @@ class Api::V1::MerchantsController < ApplicationController
   private
 
   def merchants_parameters
-    params.permit(:id, :name, :created_at, :updated_at)
+    params.permit(:id, :name, :date, :created_at, :updated_at)
   end
 end

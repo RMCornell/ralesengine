@@ -25,7 +25,7 @@ class Item < ActiveRecord::Base
   end
 
   def self.most_revenue(count)
-    successful_items.group(:name).sum('"invoice_items"."quantity" * "invoice_items"."unit_price"').sort_by(&:last).last(count.to_i).map {|n, _| Item.find_by(name: n)}
+    # successful_items.group(:name).sum('"invoice_items"."quantity" * "invoice_items"."unit_price"').sort_by(&:last).last(count.to_i).map {|n, _| Item.find_by(name: n)}
   end
 
   def self.most_items(count)
@@ -33,7 +33,7 @@ class Item < ActiveRecord::Base
   end
 
   def best_day
-    invoices.successful.group('"invoices"."created_at"').sum("quantity * unit_price / 100").sort_by(&:last).last
-
- end
+    date = invoices.successful.group('invoices.created_at').sum(('quantity * unit_price / 100')).sort_by {|x| x.last}.reverse.first.first
+    {:best_day => date}
+  end
 end

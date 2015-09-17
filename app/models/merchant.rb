@@ -20,25 +20,16 @@ class Merchant < ActiveRecord::Base
   end
 
   def total_revenue
-    invoices.successful.joins(:invoice_items).sum('quantity * unit_price / 100').to_f
-  end
-
-  def self.revenue_for_date(date = nil)
-    day = date.to_date
-    joins(:invoices).merge(Invoice.successful).where(invoices: {created_at: day.beginning_of_day..day.end_of_day}).includes(:invoice_items).sum("quantity * unit_price / 100")
+    invoices.successful.joins(:invoice_items).sum('quantity * unit_price').to_f
   end
 
   def revenue(date = nil)
     if date
       day = date.to_date
-      invoices.successful.where(created_at: day.beginning_of_day..day.end_of_day).joins(:invoice_items).sum("quantity * unit_price / 100")
+      {revenue: invoices.successful.where(created_at: day.beginning_of_day..day.end_of_day).joins(:invoice_items).sum("quantity * unit_price")}
     else
-      invoices.successful.joins(:invoice_items).sum("quantity * unit_price / 100")
+      {revenue: invoices.successful.joins(:invoice_items).sum("quantity * unit_price")}
     end
-  end
-
-  def revenue_for_date(date)
-     invoices.successful.where(created_at: date).joins(:invoice_items).sum('quantity * unit_price / 100')
   end
 
   def total_items
@@ -54,13 +45,14 @@ class Merchant < ActiveRecord::Base
   end
 
   def favorite_customer
-    hash = Hash.new(0)
-    customers.map { |c| hash[c] += 1 }
-    max_value = hash.values.max
-    hash.map { |k, v| k if v == max_value}.compact
+
   end
 
   def pending_invoices
-    invoices.pending
+
+  end
+
+  def customers_with_pending_invoices
+
   end
 end
