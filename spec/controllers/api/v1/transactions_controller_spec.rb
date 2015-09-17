@@ -20,9 +20,10 @@ RSpec.describe Api::V1::TransactionsController, type: :controller do
       expect(transactions.count).to eq(1)
 
       transaction = transactions.first
-      # expect(transaction['invoice_id']).to eq(1)
+      expect(transaction['invoice_id']).to eq(5)
       expect(transaction['result']).to eq('success')
-      expect(transaction['credit_card_number']).to eq(4242424242424242)
+      expect(transaction['credit_card_number']).to eq("4242424242424242")
+
     end
   end
 
@@ -42,9 +43,9 @@ RSpec.describe Api::V1::TransactionsController, type: :controller do
       expect(response).to have_http_status(:ok)
 
       transaction_response = JSON.parse(response.body)
-      # expect(transaction_response['invoice_id']).to eq(1)
+      expect(transaction_response['invoice_id']).to eq(6)
       expect(transaction_response['result']).to eq('success')
-      expect(transaction_response['credit_card_number']).to eq(4242424242424242)
+      expect(transaction_response['credit_card_number']).to eq("4242424242424242")
     end
   end
 end

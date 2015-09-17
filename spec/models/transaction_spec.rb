@@ -20,5 +20,9 @@ RSpec.describe Transaction, type: :model do
   it 'is invalid without a result' do
     transaction.result = nil
     expect(transaction).to_not be_valid
-    end
+  end
+
+  it 'responds to invice' do
+    respond_to :invoice
+  end
 end

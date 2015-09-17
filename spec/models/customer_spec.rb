@@ -22,5 +22,13 @@ RSpec.describe Customer, type: :model do
   it 'responds to presence of invoices' do
    respond_to :invoice
   end
+
+  it 'responds to presence of transactions' do
+    respond_to :transaction
+  end
+
+  it 'responds to presence of merchants' do
+    respond_to :merchant
+  end
 end
 
