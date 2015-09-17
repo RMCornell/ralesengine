@@ -6,7 +6,7 @@ class Api::V1::InvoicesController < ApplicationController
   end
 
   def show
-    respond_with Invoice.find_by(id: params[:id])
+    respond_with find_invoice
   end
 
   def random
@@ -22,26 +22,30 @@ class Api::V1::InvoicesController < ApplicationController
   end
 
   def transactions
-    respond_with Invoice.find_by(id: params[:id]).transactions.all
+    respond_with find_invoice.transactions.all
   end
 
   def invoice_items
-    respond_with Invoice.find_by(id: params[:id]).invoice_items.all
+    respond_with find_invoice.invoice_items.all
   end
 
   def items
-    respond_with Invoice.find_by(id: params[:id]).items.all
+    respond_with find_invoice.items.all
   end
 
   def customer
-    respond_with Invoice.find_by(id: params[:id]).customer
+    respond_with find_invoice.customer
   end
 
   def merchant
-    respond_with Invoice.find_by(id: params[:id]).merchant
+    respond_with find_invoice.merchant
   end
 
   private
+
+  def find_invoice
+    Invoice.find_by(id: params[:id])
+  end
 
   def invoice_parameters
     params.permit(:id, :customer_id, :merchant_id, :status, :created_at, :updated_at)
