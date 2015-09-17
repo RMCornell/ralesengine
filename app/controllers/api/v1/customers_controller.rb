@@ -6,7 +6,7 @@ class Api::V1::CustomersController < ApplicationController
   end
 
   def show
-    respond_with Customer.find_by(id: params[:id])
+    respond_with find_customer
   end
 
   def random
@@ -26,14 +26,18 @@ class Api::V1::CustomersController < ApplicationController
   end
 
   def transactions
-    respond_with Customer.find_by(id: params[:id]).transactions.all
+    respond_with find_customer.transactions.all
   end
 
   def favorite_merchant
-    respond_with Customer.find_by(id: params[:id]).favorite_merchant
+    respond_with find_customer.favorite_merchant
   end
 
   private
+
+  def find_customer
+    Customer.find_by(id: params[:id])
+  end
 
   def customer_parameters
     params.permit(:id, :first_name, :last_name, :created_at, :updated_at)

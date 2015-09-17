@@ -23,7 +23,7 @@ class Merchant < ActiveRecord::Base
     invoices.successful.joins(:invoice_items).sum('quantity * unit_price').to_f
   end
 
-  def revenue(date = nil)
+  def revenue(date)
     if date
       day = date.to_date
       {revenue: invoices.successful.where(created_at: day.beginning_of_day..day.end_of_day).joins(:invoice_items).sum("quantity * unit_price")}

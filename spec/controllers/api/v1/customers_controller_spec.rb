@@ -9,12 +9,12 @@ RSpec.describe Api::V1::CustomersController, type: :controller do
 
       expect(response).to have_http_status(:ok)
 
-      customers = JSON.parse(response.body)
+      customers = JSON.parse(response.body, symbolize_names: true)
       expect(customers.count).to eq(1)
 
       customer = customers.first
-      expect(customer['first_name']).to eq('First')
-      expect(customer['last_name']).to eq('Last')
+      expect(customer[:first_name]).to eq('First')
+      expect(customer[:last_name]).to eq('Last')
     end
   end
 
@@ -26,9 +26,9 @@ RSpec.describe Api::V1::CustomersController, type: :controller do
 
       expect(response).to have_http_status(:ok)
 
-      customer_response = JSON.parse(response.body)
-      expect(customer_response['first_name']).to eq("First")
-      expect(customer_response['last_name']).to eq("Last")
+      customer_response = JSON.parse(response.body, symbolize_names: true)
+      expect(customer_response[:first_name]).to eq("First")
+      expect(customer_response[:last_name]).to eq("Last")
     end
   end
 end
