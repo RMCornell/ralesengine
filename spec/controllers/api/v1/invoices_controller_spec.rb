@@ -13,13 +13,13 @@ RSpec.describe Api::V1::InvoicesController, type: :controller do
 
       expect(response).to have_http_status(:ok)
 
-      invoices = JSON.parse(response.body)
+      invoices = JSON.parse(response.body, symbolize_names: true)
       expect(invoices.count).to eq(1)
 
       invoice_response = invoices.first
-      expect(invoice_response['customer_id']).to eq(5)
-      expect(invoice_response['merchant_id']).to eq(3)
-      expect(invoice_response['status']).to eq('success')
+      expect(invoice_response[:customer_id]).to eq(5)
+      expect(invoice_response[:merchant_id]).to eq(3)
+      expect(invoice_response[:status]).to eq('success')
     end
   end
 
@@ -35,10 +35,10 @@ RSpec.describe Api::V1::InvoicesController, type: :controller do
 
       expect(response).to have_http_status(:ok)
 
-      invoice_response = JSON.parse(response.body)
-      expect(invoice_response['customer_id']).to eq(6)
-      expect(invoice_response['merchant_id']).to eq(4)
-      expect(invoice_response['status']).to eq('success')
+      invoice_response = JSON.parse(response.body, symbolize_names: true)
+      expect(invoice_response[:customer_id]).to eq(6)
+      expect(invoice_response[:merchant_id]).to eq(4)
+      expect(invoice_response[:status]).to eq('success')
     end
   end
 end

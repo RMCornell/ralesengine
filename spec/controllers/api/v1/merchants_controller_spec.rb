@@ -10,11 +10,11 @@ RSpec.describe Api::V1::MerchantsController, type: :controller do
 
       expect(response).to have_http_status(:ok)
 
-      merchants = JSON.parse(response.body)
+      merchants = JSON.parse(response.body, symbolize_names: true)
       expect(merchants.count).to eq(1)
 
       new_merchant = merchants.first
-      expect(new_merchant['name']).to eq('Merchant')
+      expect(new_merchant[:name]).to eq('Merchant')
     end
   end
 
@@ -27,8 +27,8 @@ RSpec.describe Api::V1::MerchantsController, type: :controller do
 
       expect(response).to have_http_status(:ok)
 
-      merchant_response = JSON.parse(response.body)
-      expect(merchant_response['name']).to eq('Merchant')
+      merchant_response = JSON.parse(response.body, symbolize_names: true)
+      expect(merchant_response[:name]).to eq('Merchant')
     end
   end
 end
