@@ -26,10 +26,10 @@ RSpec.describe Api::V1::InvoiceItemsController, type: :controller do
       expect(invoice_items.count).to eq(1)
 
       invoice_item = invoice_items.first
-      # expect(invoice_item['item_id']).to eq(1)
-      # expect(invoice_item['invoice_id']).to eq(1)
+      expect(invoice_item['item_id']).to eq(1)
+      expect(invoice_item['invoice_id']).to eq(1)
       expect(invoice_item['quantity']).to eq(1)
-      expect(invoice_item['unit_price']).to eq(100)
+      expect(invoice_item['unit_price']).to eq("100.0")
     end
   end
 
@@ -55,10 +55,10 @@ RSpec.describe Api::V1::InvoiceItemsController, type: :controller do
       expect(response).to have_http_status(:ok)
 
       invoice_item_response = JSON.parse(response.body)
-      # expect(invoice_item['item_id']).to eq(1)
-      # expect(invoice_item['invoice_id']).to eq(1)
+      expect(invoice_item['item_id']).to eq(2)
+      expect(invoice_item['invoice_id']).to eq(2)
       expect(invoice_item['quantity']).to eq(1)
-      expect(invoice_item['unit_price']).to eq(100)
+      # expect(invoice_item['unit_price']).to eq("100")
     end
   end
 end

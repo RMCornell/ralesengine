@@ -29,5 +29,17 @@ RSpec.describe Invoice, type: :model do
   it 'responds to items' do
     respond_to :items
   end
+
+  it 'responds to customer' do
+    respond_to :customer
+  end
+
+  it 'responds to merchant' do
+    respond_to :merchant
+  end
+
+  it 'responds to transactions' do
+    respond_to :transaction
+  end
 end
 

@@ -26,4 +26,12 @@ RSpec.describe Item, type: :model do
     item.merchant_id = nil
     expect(item).to_not be_valid
   end
+
+  it 'responds to invoice items' do
+    respond_to :invoice_item
+  end
+
+  it 'responds to invoices' do
+    respond_to :invoice
+  end
 end

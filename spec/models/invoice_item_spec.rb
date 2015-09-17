@@ -26,4 +26,12 @@ RSpec.describe InvoiceItem, type: :model do
     invoice_item.unit_price = nil
     expect(invoice_item).to_not be_valid
   end
+
+  it 'responds to item' do
+    respond_to :item
+  end
+
+  it 'responds to invoice' do
+    respond_to :invoice
+  end
 end

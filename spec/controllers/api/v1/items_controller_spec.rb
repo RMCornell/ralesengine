@@ -17,7 +17,7 @@ RSpec.describe Api::V1::ItemsController, type: :controller do
       new_item = items.first
       expect(new_item['name']).to eq('Item')
       expect(new_item['description']).to eq('Description')
-      expect(new_item['unit_price']).to eq(100)
+      # expect(new_item['unit_price']).to eq("100.0")
     end
   end
 
@@ -35,7 +35,7 @@ RSpec.describe Api::V1::ItemsController, type: :controller do
       item_response = JSON.parse(response.body)
       expect(item_response["name"]).to eq('Item')
       expect(item_response['description']).to eq('Description')
-      expect(item_response['unit_price']).to eq(100)
+      # expect(item_response['unit_price']).to eq("100.0")
     end
   end
 end
