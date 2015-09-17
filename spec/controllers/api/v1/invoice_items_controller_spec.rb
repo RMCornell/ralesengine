@@ -22,7 +22,7 @@ RSpec.describe Api::V1::InvoiceItemsController, type: :controller do
 
       expect(response). to have_http_status(:ok)
 
-      invoice_items = JSON.parse(response.body)
+      invoice_items = JSON.parse(response.body, serialize_names: true)
       expect(invoice_items.count).to eq(1)
 
       invoice_item = invoice_items.first
